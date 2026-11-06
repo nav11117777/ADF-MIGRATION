@@ -1,0 +1,17 @@
+{
+	"name": "LS_SQLSERVER",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"server": "NAVEEN\\SQLEXPRESS",
+			"database": "AdventureWorksDW2025",
+			"encrypt": "optional",
+			"trustServerCertificate": false,
+			"authenticationType": "SQL",
+			"userName": "NAVEEN\\Damasingi rao",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQEM5NTY0MThBLUE1MDYtNDhEQS1COTk1LTQ3MTU3RDQyNEI2MF81Yzc3YjI1Mi03ZWExLTRjMDUtYTAwYy0xZjI4MmUwNzIwOGUiDQp9"
+		}
+	}
+}

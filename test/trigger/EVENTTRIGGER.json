@@ -1,0 +1,24 @@
+{
+	"name": "EVENTTRIGGER",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "PL_ADLSCSV_TO_ADLS_PARQUETE_EVENT",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/eventcontainer/blobs/",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/2c3ff618-eaeb-43ca-99d3-461639992b5f/resourceGroups/rgdevcheronproject/providers/Microsoft.Storage/storageAccounts/adlsdevcsvtrigger111",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}
