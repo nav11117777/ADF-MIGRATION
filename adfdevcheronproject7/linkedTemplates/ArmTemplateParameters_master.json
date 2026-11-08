@@ -50,11 +50,17 @@
 		"LS_json_accountKey": {
 			"value": ""
 		},
+		"Ls_watermark_password": {
+			"value": ""
+		},
 		"ls_parq_accountKey": {
 			"value": ""
 		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"value": "https://adlsdevxlsource.dfs.core.windows.net/"
+		},
+		"AzureKeyVault1_properties_typeProperties_baseUrl": {
+			"value": "https://keyvalue111.vault.azure.net/"
 		},
 		"LS_CSVTRIGGER_properties_typeProperties_url": {
 			"value": "https://adlsdevcsvtrigger111.dfs.core.windows.net/"
@@ -118,6 +124,15 @@
 		},
 		"LS_json_properties_typeProperties_url": {
 			"value": "https://adlsdevsinkstrge.dfs.core.windows.net/"
+		},
+		"Ls_watermark_properties_typeProperties_server": {
+			"value": "NAVEEN\\SQLEXPRESS"
+		},
+		"Ls_watermark_properties_typeProperties_database": {
+			"value": "sqlmigtration"
+		},
+		"Ls_watermark_properties_typeProperties_userName": {
+			"value": "NAVEEN"
 		},
 		"ls_parq_properties_typeProperties_url": {
 			"value": "https://adlsdevsinkstrge.dfs.core.windows.net/"

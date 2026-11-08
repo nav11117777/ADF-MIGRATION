@@ -67,6 +67,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'LS_json'"
 		},
+		"Ls_watermark_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'Ls_watermark'"
+		},
 		"ls_parq_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'ls_parq'"
@@ -74,6 +78,10 @@
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://adlsdevxlsource.dfs.core.windows.net/"
+		},
+		"AzureKeyVault1_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://keyvalue111.vault.azure.net/"
 		},
 		"LS_CSVTRIGGER_properties_typeProperties_url": {
 			"type": "string",
@@ -158,6 +166,18 @@
 		"LS_json_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://adlsdevsinkstrge.dfs.core.windows.net/"
+		},
+		"Ls_watermark_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "NAVEEN\\SQLEXPRESS"
+		},
+		"Ls_watermark_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "sqlmigtration"
+		},
+		"Ls_watermark_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "NAVEEN"
 		},
 		"ls_parq_properties_typeProperties_url": {
 			"type": "string",
@@ -705,6 +725,47 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Parent Pipeline Orchestration')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "watermarktable",
+						"type": "Lookup",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SqlServerSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "ds_watermark",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_watermark')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/DS_CSVTRIGGER')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -1153,6 +1214,45 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/ds_watermark')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Ls_watermark",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [
+					{
+						"name": "TableSchema",
+						"type": "varchar"
+					},
+					{
+						"name": "TableName",
+						"type": "varchar"
+					},
+					{
+						"name": "WatermarkColumn",
+						"type": "varchar"
+					},
+					{
+						"name": "LastLoadValue",
+						"type": "bigint",
+						"precision": 19
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "ADF_Watermark_Table"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Ls_watermark')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/json')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -1187,6 +1287,19 @@
 						"type": "SecureString",
 						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
 					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureKeyVault1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureKeyVault",
+				"typeProperties": {
+					"baseUrl": "[parameters('AzureKeyVault1_properties_typeProperties_baseUrl')]"
 				}
 			},
 			"dependsOn": []
@@ -1470,6 +1583,34 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Ls_watermark')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "SqlServer",
+				"typeProperties": {
+					"server": "[parameters('Ls_watermark_properties_typeProperties_server')]",
+					"database": "[parameters('Ls_watermark_properties_typeProperties_database')]",
+					"encrypt": "optional",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('Ls_watermark_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('Ls_watermark_password')]"
+					}
+				},
+				"connectVia": {
+					"referenceName": "integrationRuntime1",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/integrationRuntime1')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/ls_parq')]",

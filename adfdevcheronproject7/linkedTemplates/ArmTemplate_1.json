@@ -15,6 +15,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'LS_SQL_SERVER2'"
 		},
+		"Ls_watermark_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'Ls_watermark'"
+		},
 		"LS_SQLSERVER_DB_properties_typeProperties_server": {
 			"type": "string",
 			"defaultValue": "NAVEEN\\SQLEXPRESS"
@@ -39,15 +43,48 @@
 			"type": "string",
 			"defaultValue": "NAVEEN"
 		},
-		"EVENTTRIGGER_properties_typeProperties_scope": {
+		"Ls_watermark_properties_typeProperties_server": {
 			"type": "string",
-			"defaultValue": "/subscriptions/2c3ff618-eaeb-43ca-99d3-461639992b5f/resourceGroups/rgdevcheronproject/providers/Microsoft.Storage/storageAccounts/adlsdevcsvtrigger111"
+			"defaultValue": "NAVEEN\\SQLEXPRESS"
+		},
+		"Ls_watermark_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "sqlmigtration"
+		},
+		"Ls_watermark_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "NAVEEN"
 		}
 	},
 	"variables": {
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_MULTIPLE')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_MULTIPLE",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "outputmultiplecsv"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/DS_MULTIPLECSV')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
@@ -362,6 +399,32 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Ls_watermark')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "SqlServer",
+				"typeProperties": {
+					"server": "[parameters('Ls_watermark_properties_typeProperties_server')]",
+					"database": "[parameters('Ls_watermark_properties_typeProperties_database')]",
+					"encrypt": "optional",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('Ls_watermark_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('Ls_watermark_password')]"
+					}
+				},
+				"connectVia": {
+					"referenceName": "integrationRuntime1",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/PL_ADLSCSV_TO_ADLS_PARQUETE')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -586,7 +649,8 @@
 				"lastPublishTime": "2026-10-28T18:32:35Z"
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/DS_MULTIPLECSV')]"
+				"[concat(variables('factoryId'), '/datasets/DS_MULTIPLECSV')]",
+				"[concat(variables('factoryId'), '/datasets/DS_MULTIPLE')]"
 			]
 		},
 		{
@@ -952,66 +1016,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_SQL_SERVER2')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/EVENTTRIGGER')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Stopped",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "PL_ADLSCSV_TO_ADLS_PARQUETE_EVENT",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "BlobEventsTrigger",
-				"typeProperties": {
-					"blobPathBeginsWith": "/eventcontainer/blobs/",
-					"ignoreEmptyBlobs": true,
-					"scope": "[parameters('EVENTTRIGGER_properties_typeProperties_scope')]",
-					"events": [
-						"Microsoft.Storage.BlobCreated"
-					]
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/PL_ADLSCSV_TO_ADLS_PARQUETE_EVENT')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SCH_CSV_TO_PARQUETE')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "PL_ADLSCSV_TO_ADLS_PARQUETE",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Day",
-						"interval": 1,
-						"startTime": "2026-11-06T19:11:24",
-						"timeZone": "India Standard Time"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/PL_ADLSCSV_TO_ADLS_PARQUETE')]"
 			]
 		}
 	]
