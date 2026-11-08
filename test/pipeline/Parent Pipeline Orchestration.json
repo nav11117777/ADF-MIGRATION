@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "watermarktable",
+				"name": "LKUP_SQLTABLE_WATRMRK_DW",
 				"type": "Lookup",
 				"dependsOn": [],
 				"policy": {
@@ -23,6 +23,25 @@
 					"dataset": {
 						"referenceName": "ds_watermark",
 						"type": "DatasetReference"
+					}
+				}
+			},
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "LKUP_SQLTABLE_WATRMRK_DW",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('LKUP_SQLTABLE_WATRMRK_DW').output.value\n",
+						"type": "Expression"
 					}
 				}
 			}
