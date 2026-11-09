@@ -7,11 +7,11 @@
 		"typeProperties": {
 			"server": "NAVEEN\\SQLEXPRESS",
 			"database": "sqlmigtration",
-			"encrypt": "optional",
-			"trustServerCertificate": false,
+			"encrypt": "mandatory",
+			"trustServerCertificate": true,
 			"authenticationType": "SQL",
 			"userName": "NAVEEN",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI1YTg2ZjNkNy03MGQwLTRjMDUtOWQ1NS0zMzJlZDhmNmY1MmEiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI5YmNjYmFmYy0zZDY4LTQ1YTAtYTFiYS0yM2QwMDJmMTdhNjEiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "integrationRuntime1",
