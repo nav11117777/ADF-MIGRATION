@@ -5,7 +5,13 @@
 		"factoryName": {
 			"value": "adfdevcheronproject7"
 		},
+		"ADLS_SQL_MIGRATION_PARQUET_accountKey": {
+			"value": ""
+		},
 		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"LS_CHILD_WATERMARK_password": {
 			"value": ""
 		},
 		"LS_CSVTRIGGER_accountKey": {
@@ -20,10 +26,16 @@
 		"LS_EVENTTRIGGER_accountKey": {
 			"value": ""
 		},
+		"LS_LKUP_MAX_VALUE_password": {
+			"value": ""
+		},
 		"LS_MULTIPLE_accountKey": {
 			"value": ""
 		},
 		"LS_MULTIPLECSV_accountKey": {
+			"value": ""
+		},
+		"LS_ONPREM_SP_password": {
 			"value": ""
 		},
 		"LS_PARQUETE_accountKey": {
@@ -56,11 +68,23 @@
 		"ls_parq_accountKey": {
 			"value": ""
 		},
+		"ADLS_SQL_MIGRATION_PARQUET_properties_typeProperties_url": {
+			"value": "https://sqlmigrationtoadlstarget.dfs.core.windows.net/"
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"value": "https://adlsdevxlsource.dfs.core.windows.net/"
 		},
 		"AzureKeyVault1_properties_typeProperties_baseUrl": {
 			"value": "https://keyvalue111.vault.azure.net/"
+		},
+		"LS_CHILD_WATERMARK_properties_typeProperties_server": {
+			"value": "NAVEEN\\SQLEXPRESS"
+		},
+		"LS_CHILD_WATERMARK_properties_typeProperties_database": {
+			"value": "sqlmigtration"
+		},
+		"LS_CHILD_WATERMARK_properties_typeProperties_userName": {
+			"value": "NAVEEN"
 		},
 		"LS_CSVTRIGGER_properties_typeProperties_url": {
 			"value": "https://adlsdevcsvtrigger111.dfs.core.windows.net/"
@@ -74,11 +98,29 @@
 		"LS_EVENTTRIGGER_properties_typeProperties_url": {
 			"value": "https://adlsdevcsvtrigger111.dfs.core.windows.net/"
 		},
+		"LS_LKUP_MAX_VALUE_properties_typeProperties_server": {
+			"value": "NAVEEN\\SQLEXPRESS"
+		},
+		"LS_LKUP_MAX_VALUE_properties_typeProperties_database": {
+			"value": "sqlmigtration"
+		},
+		"LS_LKUP_MAX_VALUE_properties_typeProperties_userName": {
+			"value": "NAVEEN"
+		},
 		"LS_MULTIPLE_properties_typeProperties_url": {
 			"value": "https://adlsdevsinkstrge.dfs.core.windows.net/"
 		},
 		"LS_MULTIPLECSV_properties_typeProperties_url": {
 			"value": "https://adlsdevxlsource.dfs.core.windows.net/"
+		},
+		"LS_ONPREM_SP_properties_typeProperties_server": {
+			"value": "NAVEEN\\SQLEXPRESS"
+		},
+		"LS_ONPREM_SP_properties_typeProperties_database": {
+			"value": "sqlmigtration"
+		},
+		"LS_ONPREM_SP_properties_typeProperties_userName": {
+			"value": "NAVEEN"
 		},
 		"LS_PARQUETE_properties_typeProperties_url": {
 			"value": "https://adlsdevcsvouttrigger1.dfs.core.windows.net/"
