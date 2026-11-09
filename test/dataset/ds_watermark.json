@@ -2,7 +2,7 @@
 	"name": "ds_watermark",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "Ls_watermark",
+			"referenceName": "LS_CHILD_WATERMARK",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
@@ -25,10 +25,6 @@
 				"type": "bigint",
 				"precision": 19
 			}
-		],
-		"typeProperties": {
-			"schema": "dbo",
-			"table": "ADF_Watermark_Table"
-		}
+		]
 	}
 }
