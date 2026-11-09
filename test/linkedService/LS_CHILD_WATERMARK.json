@@ -1,0 +1,21 @@
+{
+	"name": "LS_CHILD_WATERMARK",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"server": "NAVEEN\\SQLEXPRESS",
+			"database": "sqlmigtration",
+			"encrypt": "optional",
+			"trustServerCertificate": false,
+			"authenticationType": "SQL",
+			"userName": "NAVEEN",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJiMWU4Y2Y4ZC0wYzA5LTRmMGYtYmFlMy03ZDc4Yjk5MjEyMWUiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntime1",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
