@@ -79,6 +79,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'LS_SQL_SERVER2'"
 		},
+		"LS_TEST_REST_PARQUET_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_TEST_REST_PARQUET'"
+		},
 		"LS_json_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'LS_json'"
@@ -219,6 +223,14 @@
 			"type": "string",
 			"defaultValue": "NAVEEN"
 		},
+		"LS_TEST_REST_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://reqres.in/api/users"
+		},
+		"LS_TEST_REST_PARQUET_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adlsdevsinkstrge.dfs.core.windows.net/"
+		},
 		"LS_json_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://adlsdevsinkstrge.dfs.core.windows.net/"
@@ -309,6 +321,9 @@
 					"LS_SQLSERVER_password": {
 						"value": "[parameters('LS_SQLSERVER_password')]"
 					},
+					"LS_TEST_REST_PARQUET_accountKey": {
+						"value": "[parameters('LS_TEST_REST_PARQUET_accountKey')]"
+					},
 					"LS_json_accountKey": {
 						"value": "[parameters('LS_json_accountKey')]"
 					},
@@ -366,6 +381,12 @@
 					"LS_SQLSERVER_properties_typeProperties_userName": {
 						"value": "[parameters('LS_SQLSERVER_properties_typeProperties_userName')]"
 					},
+					"LS_TEST_REST_properties_typeProperties_url": {
+						"value": "[parameters('LS_TEST_REST_properties_typeProperties_url')]"
+					},
+					"LS_TEST_REST_PARQUET_properties_typeProperties_url": {
+						"value": "[parameters('LS_TEST_REST_PARQUET_properties_typeProperties_url')]"
+					},
 					"LS_json_properties_typeProperties_url": {
 						"value": "[parameters('LS_json_properties_typeProperties_url')]"
 					},
@@ -399,15 +420,6 @@
 					"LS_ONPREM_SP_password": {
 						"value": "[parameters('LS_ONPREM_SP_password')]"
 					},
-					"LS_SQLSERVER_DB_password": {
-						"value": "[parameters('LS_SQLSERVER_DB_password')]"
-					},
-					"LS_SQL_SERVER2_password": {
-						"value": "[parameters('LS_SQL_SERVER2_password')]"
-					},
-					"Ls_watermark_password": {
-						"value": "[parameters('Ls_watermark_password')]"
-					},
 					"LS_CHILD_WATERMARK_properties_typeProperties_server": {
 						"value": "[parameters('LS_CHILD_WATERMARK_properties_typeProperties_server')]"
 					},
@@ -434,6 +446,35 @@
 					},
 					"LS_ONPREM_SP_properties_typeProperties_userName": {
 						"value": "[parameters('LS_ONPREM_SP_properties_typeProperties_userName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'adfdevcheronproject7_ArmTemplate_0')]"
+			]
+		},
+		{
+			"name": "adfdevcheronproject7_ArmTemplate_2",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"LS_SQLSERVER_DB_password": {
+						"value": "[parameters('LS_SQLSERVER_DB_password')]"
+					},
+					"LS_SQL_SERVER2_password": {
+						"value": "[parameters('LS_SQL_SERVER2_password')]"
+					},
+					"Ls_watermark_password": {
+						"value": "[parameters('Ls_watermark_password')]"
 					},
 					"LS_SQLSERVER_DB_properties_typeProperties_server": {
 						"value": "[parameters('LS_SQLSERVER_DB_properties_typeProperties_server')]"
@@ -461,26 +502,6 @@
 					},
 					"Ls_watermark_properties_typeProperties_userName": {
 						"value": "[parameters('Ls_watermark_properties_typeProperties_userName')]"
-					}
-				}
-			},
-			"dependsOn": [
-				"[resourceId('Microsoft.Resources/deployments', 'adfdevcheronproject7_ArmTemplate_0')]"
-			]
-		},
-		{
-			"name": "adfdevcheronproject7_ArmTemplate_2",
-			"type": "Microsoft.Resources/deployments",
-			"apiVersion": "2024-03-01",
-			"properties": {
-				"mode": "incremental",
-				"templateLink": {
-					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
-					"contentVersion": "1.0.0.0"
-				},
-				"parameters": {
-					"factoryName": {
-						"value": "[parameters('factoryName')]"
 					},
 					"EVENTTRIGGER_properties_typeProperties_scope": {
 						"value": "[parameters('EVENTTRIGGER_properties_typeProperties_scope')]"

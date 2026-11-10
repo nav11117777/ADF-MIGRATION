@@ -59,6 +59,9 @@
 		"LS_SQL_SERVER2_password": {
 			"value": ""
 		},
+		"LS_TEST_REST_PARQUET_accountKey": {
+			"value": ""
+		},
 		"LS_json_accountKey": {
 			"value": ""
 		},
@@ -163,6 +166,12 @@
 		},
 		"LS_SQL_SERVER2_properties_typeProperties_userName": {
 			"value": "NAVEEN"
+		},
+		"LS_TEST_REST_properties_typeProperties_url": {
+			"value": "https://reqres.in/api/users"
+		},
+		"LS_TEST_REST_PARQUET_properties_typeProperties_url": {
+			"value": "https://adlsdevsinkstrge.dfs.core.windows.net/"
 		},
 		"LS_json_properties_typeProperties_url": {
 			"value": "https://adlsdevsinkstrge.dfs.core.windows.net/"
