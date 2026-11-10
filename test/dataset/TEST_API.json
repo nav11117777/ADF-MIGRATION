@@ -1,0 +1,12 @@
+{
+	"name": "TEST_API",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_TEST_REST",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"schema": []
+	}
+}
