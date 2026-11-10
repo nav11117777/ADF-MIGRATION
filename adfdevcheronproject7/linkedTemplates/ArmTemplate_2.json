@@ -686,7 +686,7 @@
 							"source": {
 								"type": "SqlServerSource",
 								"sqlReaderQuery": {
-									"value": "SELECT MAX(@{pipeline().parameters.WatermarkColumn}) AS MaxValue\nFROM @{pipeline().parameters.TableSchema}.@{pipeline().parameters.TableName}\n",
+									"value": "SELECT MAX(@pipeline().parameters.WatermarkColumn) AS MaxValue\nFROM @pipeline().parameters.TableSchema.@pipeline().parameters.TableName\n",
 									"type": "Expression"
 								},
 								"queryTimeout": "02:00:00",
@@ -697,11 +697,11 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"schemaname": {
-										"value": "@{pipeline().parameters.TableSchema}",
+										"value": "@pipeline().parameters.TableSchema",
 										"type": "Expression"
 									},
 									"tablename": {
-										"value": "@{pipeline().parameters.TableNAME}",
+										"value": "@pipeline().parameters.TableName",
 										"type": "Expression"
 									}
 								}
@@ -783,7 +783,10 @@
 											"referenceName": "DS_SINKMIGRATION_PARQUET",
 											"type": "DatasetReference",
 											"parameters": {
-												"Table_Name": "@{pipeline().parameters.TableName"
+												"Table_Name": {
+													"value": "@pipeline().parameters.TableName",
+													"type": "Expression"
+												}
 											}
 										}
 									]
@@ -834,20 +837,16 @@
 				},
 				"parameters": {
 					"TableSchema": {
-						"type": "string",
-						"defaultValue": "@{pipeline().parameters.TableSchema}"
+						"type": "string"
 					},
 					"TableName": {
-						"type": "string",
-						"defaultValue": "@{pipeline().parameters.TableName}"
+						"type": "string"
 					},
 					"WatermarkColumn": {
-						"type": "string",
-						"defaultValue": "@{pipeline().parameters.WatermarkColumn}"
+						"type": "string"
 					},
 					"LastLoadValue": {
-						"type": "string",
-						"defaultValue": "@{pipeline().parameters.LastLoadValue}"
+						"type": "string"
 					}
 				},
 				"annotations": []
@@ -965,6 +964,7 @@
 								"value": "@activity('LKUP_SQLTABLE_WATRMRK_DW').output.value\n",
 								"type": "Expression"
 							},
+							"isSequential": false,
 							"activities": [
 								{
 									"name": "Execute Pipeline1",
